@@ -30,6 +30,7 @@ extraResources:
   - from: public/
     to: standalone/public/
     filter: ["**/*"]
+afterPack: scripts/after-pack.js
 asarUnpack:
   - "**/*.node"
   - "**/better-sqlite3/**"
