@@ -18,6 +18,7 @@ extraResources:
     filter:
       - "**/*"
       - "!node_modules"
+      - "!release"
   - from: .next/standalone/node_modules/
     to: standalone/node_modules/
     filter: ["**/*"]
