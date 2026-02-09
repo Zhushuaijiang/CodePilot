@@ -27,7 +27,7 @@ interface ToolResultInfo {
 }
 
 interface MessageListProps {
-  sessionId: string;
+  sessionId?: string;
   messages: Message[];
   streamingContent: string;
   isStreaming: boolean;
@@ -72,7 +72,7 @@ export function MessageList({
   }, [sessionId, messages]);
 
   const loadMoreMessages = useCallback(async () => {
-    if (loadingMore) return;
+    if (loadingMore || !sessionId) return;
 
     setLoadingMore(true);
     try {
