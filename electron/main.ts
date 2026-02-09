@@ -321,7 +321,7 @@ app.whenReady().then(async () => {
     let port: number;
 
     if (isDev) {
-      port = 3000;
+      port = 3002;
       console.log(`Dev mode: connecting to http://127.0.0.1:${port}`);
     } else {
       port = await getPort();
@@ -362,7 +362,7 @@ app.on('activate', async () => {
         await waitForServer(port);
         serverPort = port;
       }
-      createWindow(serverPort || 3000);
+      createWindow(serverPort || 3002);
     } catch (err) {
       console.error('Failed to restart server:', err);
     }

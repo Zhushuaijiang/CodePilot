@@ -21,7 +21,7 @@ function record(category: string, name: string, status: 'PASS' | 'FAIL' | 'SKIP'
 
 async function testLayoutAndNav(context: BrowserContext) {
   const page = await context.newPage();
-  await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   // --- Sidebar exists ---
@@ -113,7 +113,7 @@ async function testLayoutAndNav(context: BrowserContext) {
 async function testMobileResponsive(context: BrowserContext) {
   const page = await context.newPage();
   await page.setViewportSize({ width: 375, height: 667 });
-  await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   await page.screenshot({ path: '/Users/op7418/Documents/code/opus-4.6-test/src/__tests__/screenshots/mobile-chat.png', fullPage: true });
@@ -130,13 +130,13 @@ async function testMobileResponsive(context: BrowserContext) {
   record('Responsive', 'Hamburger menu button exists', hamburgerCount > 0 ? 'PASS' : 'FAIL', `Found ${hamburgerCount} potential hamburger buttons`);
 
   // Test plugins page on mobile
-  await page.goto('http://localhost:3000/plugins', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/plugins', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
   await page.screenshot({ path: '/Users/op7418/Documents/code/opus-4.6-test/src/__tests__/screenshots/mobile-plugins.png', fullPage: true });
   record('Responsive', 'Plugins page renders on mobile', 'PASS', 'Screenshot taken');
 
   // Test settings page on mobile
-  await page.goto('http://localhost:3000/settings', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/settings', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
   await page.screenshot({ path: '/Users/op7418/Documents/code/opus-4.6-test/src/__tests__/screenshots/mobile-settings.png', fullPage: true });
   record('Responsive', 'Settings page renders on mobile', 'PASS', 'Screenshot taken');
@@ -146,7 +146,7 @@ async function testMobileResponsive(context: BrowserContext) {
 
 async function testChatFlow(context: BrowserContext) {
   const page = await context.newPage();
-  await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   // --- New Chat button ---
@@ -197,7 +197,7 @@ async function testChatFlow(context: BrowserContext) {
 
     // Check if URL changed (new conversation created)
     const urlAfterSend = page.url();
-    record('Chat', 'URL updates after sending message', urlAfterSend !== 'http://localhost:3000/chat' ? 'PASS' : 'FAIL', `URL: ${urlAfterSend}`);
+    record('Chat', 'URL updates after sending message', urlAfterSend !== 'http://localhost:3002/chat' ? 'PASS' : 'FAIL', `URL: ${urlAfterSend}`);
 
     // Check sidebar for new conversation
     await page.waitForTimeout(1000);
@@ -211,7 +211,7 @@ async function testChatFlow(context: BrowserContext) {
 
 async function testPlugins(context: BrowserContext) {
   const page = await context.newPage();
-  await page.goto('http://localhost:3000/plugins', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/plugins', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   // --- Page title ---
@@ -254,7 +254,7 @@ async function testPlugins(context: BrowserContext) {
 
 async function testMCPPage(context: BrowserContext) {
   const page = await context.newPage();
-  await page.goto('http://localhost:3000/plugins/mcp', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/plugins/mcp', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   // --- Page title ---
@@ -324,7 +324,7 @@ async function testMCPPage(context: BrowserContext) {
 
 async function testSettings(context: BrowserContext) {
   const page = await context.newPage();
-  await page.goto('http://localhost:3000/settings', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:3002/settings', { waitUntil: 'networkidle' });
   await page.waitForTimeout(500);
 
   // --- Page title ---
@@ -399,7 +399,7 @@ async function testConsoleErrors(context: BrowserContext) {
       }
     });
 
-    await page.goto(`http://localhost:3000${route}`, { waitUntil: 'networkidle' });
+    await page.goto(`http://localhost:3002${route}`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1000);
 
     // Filter out known non-critical errors (like favicon 404, hydration warnings in dev)

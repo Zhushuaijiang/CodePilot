@@ -18,11 +18,11 @@ async function runSmokeTests() {
   const results: TestResult[] = [];
 
   const routes = [
-    { name: 'Home redirect', url: 'http://localhost:3000/', expectRedirectTo: '/chat' },
-    { name: 'Chat page', url: 'http://localhost:3000/chat' },
-    { name: 'Plugins page', url: 'http://localhost:3000/plugins' },
-    { name: 'MCP page', url: 'http://localhost:3000/plugins/mcp' },
-    { name: 'Settings page', url: 'http://localhost:3000/settings' },
+    { name: 'Home redirect', url: 'http://localhost:3002/', expectRedirectTo: '/chat' },
+    { name: 'Chat page', url: 'http://localhost:3002/chat' },
+    { name: 'Plugins page', url: 'http://localhost:3002/plugins' },
+    { name: 'MCP page', url: 'http://localhost:3002/plugins/mcp' },
+    { name: 'Settings page', url: 'http://localhost:3002/settings' },
   ];
 
   for (const route of routes) {

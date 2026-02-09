@@ -76,7 +76,7 @@ npm run dev
 npm run electron:dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) (browser mode) or wait for the Electron window to appear.
+Then open [http://localhost:3002](http://localhost:3002) (browser mode) or wait for the Electron window to appear.
 
 ---
 

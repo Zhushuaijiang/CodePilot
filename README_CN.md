@@ -62,7 +62,7 @@ npm run dev
 npm run electron:dev
 ```
 
-然后打开 [http://localhost:3000](http://localhost:3000)（浏览器模式）或等待 Electron 窗口弹出。
+然后打开 [http://localhost:3002](http://localhost:3002)（浏览器模式）或等待 Electron 窗口弹出。
 
 ---
 

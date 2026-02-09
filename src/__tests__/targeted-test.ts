@@ -17,7 +17,7 @@ async function main() {
     const page = await context.newPage();
 
     // On mobile, sidebar starts OPEN (state defaults to true in AppShell)
-    await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+    await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
 
     // Find the X button in sidebar header (visible on mobile)
@@ -55,7 +55,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     const page = await context.newPage();
-    await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+    await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
 
     // Send message
@@ -91,7 +91,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     const page = await context.newPage();
-    await page.goto('http://localhost:3000/plugins', { waitUntil: 'networkidle' });
+    await page.goto('http://localhost:3002/plugins', { waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
 
     // The tabs render as "All (0)", "Global (0)", "Project (0)" -- not exact match with "All"
@@ -123,7 +123,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     const page = await context.newPage();
-    await page.goto('http://localhost:3000/plugins/mcp', { waitUntil: 'networkidle' });
+    await page.goto('http://localhost:3002/plugins/mcp', { waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
 
     // The back button is visible in the screenshot as a left arrow
@@ -154,7 +154,7 @@ async function main() {
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
     const page = await context.newPage();
-    await page.goto('http://localhost:3000/chat', { waitUntil: 'networkidle' });
+    await page.goto('http://localhost:3002/chat', { waitUntil: 'networkidle' });
     await page.waitForTimeout(500);
 
     // The header has a PanelLeftClose/PanelLeft toggle
