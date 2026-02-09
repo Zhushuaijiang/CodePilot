@@ -30,14 +30,14 @@ function formatRelativeTime(dateStr: string): string {
   const diffHr = Math.floor(diffMin / 60);
   const diffDay = Math.floor(diffHr / 24);
 
-  if (diffMin < 1) return "just now";
-  if (diffMin < 60) return `${diffMin}m ago`;
-  if (diffHr < 24) return `${diffHr}h ago`;
-  if (diffDay < 7) return `${diffDay}d ago`;
+  if (diffMin < 1) return "刚刚";
+  if (diffMin < 60) return `${diffMin} 分钟前`;
+  if (diffHr < 24) return `${diffHr} 小时前`;
+  if (diffDay < 7) return `${diffDay} 天前`;
   return date.toLocaleDateString();
 }
 
-const DATE_GROUP_ORDER = ["Today", "Yesterday", "Last 7 Days", "Older"];
+const DATE_GROUP_ORDER = ["今天", "昨天", "最近 7 天", "更早"];
 
 function groupSessionsByDate(
   sessions: ChatSession[]
@@ -51,10 +51,10 @@ function groupSessionsByDate(
   for (const session of sessions) {
     const date = new Date(session.updated_at);
     let group: string;
-    if (date >= today) group = "Today";
-    else if (date >= yesterday) group = "Yesterday";
-    else if (date >= lastWeek) group = "Last 7 Days";
-    else group = "Older";
+    if (date >= today) group = "今天";
+    else if (date >= yesterday) group = "昨天";
+    else if (date >= lastWeek) group = "最近 7 天";
+    else group = "更早";
 
     if (!groups[group]) groups[group] = [];
     groups[group].push(session);
@@ -63,9 +63,9 @@ function groupSessionsByDate(
 }
 
 const MODE_BADGE_CONFIG = {
-  code: { label: "Code", className: "bg-blue-500/10 text-blue-500" },
-  plan: { label: "Plan", className: "bg-purple-500/10 text-purple-500" },
-  ask: { label: "Ask", className: "bg-green-500/10 text-green-500" },
+  code: { label: "代码", className: "bg-blue-500/10 text-blue-500" },
+  plan: { label: "计划", className: "bg-purple-500/10 text-purple-500" },
+  ask: { label: "问答", className: "bg-green-500/10 text-green-500" },
 } as const;
 
 export function ChatListPanel({ open }: ChatListPanelProps) {
@@ -115,7 +115,7 @@ export function ChatListPanel({ open }: ChatListPanelProps) {
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!confirm('Delete this conversation?')) return;
+    if (!confirm("确定要删除此对话吗？")) return;
     setDeletingSession(sessionId);
     try {
       const res = await fetch(`/api/chat/sessions/${sessionId}`, {
@@ -152,7 +152,7 @@ export function ChatListPanel({ open }: ChatListPanelProps) {
       {/* Header - extra top padding for macOS traffic lights */}
       <div className="flex h-12 shrink-0 items-center justify-between px-3 mt-5 pl-6">
         <span className="text-[13px] font-semibold tracking-tight text-sidebar-foreground">
-          Chats
+          对话列表
         </span>
         <ConnectionStatus />
       </div>
@@ -162,7 +162,7 @@ export function ChatListPanel({ open }: ChatListPanelProps) {
         <div className="relative">
           <HugeiconsIcon icon={Search01Icon} className="absolute left-2.5 top-1/2 h-3 w-3 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search chats..."
+            placeholder="搜索对话..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="h-8 pl-7 text-xs"
@@ -175,7 +175,7 @@ export function ChatListPanel({ open }: ChatListPanelProps) {
         <div className="flex flex-col pb-3">
           {filteredSessions.length === 0 ? (
             <p className="px-2.5 py-3 text-[11px] text-muted-foreground/60">
-              {searchQuery ? "No matching chats" : "No conversations yet"}
+              {searchQuery ? "没有匹配的对话" : "还没有对话"}
             </p>
           ) : (
             DATE_GROUP_ORDER.map((group) => {
@@ -263,12 +263,12 @@ export function ChatListPanel({ open }: ChatListPanelProps) {
                                 >
                                   <HugeiconsIcon icon={Delete02Icon} className="h-3 w-3" />
                                   <span className="sr-only">
-                                    Delete session
+                                    删除会话
                                   </span>
                                 </Button>
                               </TooltipTrigger>
                               <TooltipContent side="right">
-                                Delete
+                                删除
                               </TooltipContent>
                             </Tooltip>
                           )}

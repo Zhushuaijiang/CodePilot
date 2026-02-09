@@ -35,14 +35,14 @@ interface SettingsData {
 const KNOWN_FIELDS = [
   {
     key: "permissions",
-    label: "Permissions",
-    description: "Configure permission settings for Claude CLI",
+    label: "权限",
+    description: "配置 Claude CLI 的权限设置",
     type: "object" as const,
   },
   {
     key: "env",
-    label: "Environment Variables",
-    description: "Environment variables passed to Claude",
+    label: "环境变量",
+    description: "传递给 Claude 的环境变量",
     type: "object" as const,
   },
 ] as const;
@@ -111,7 +111,7 @@ function SettingsPageInner() {
         dataToSave = JSON.parse(jsonText);
         setJsonError("");
       } catch {
-        setJsonError("Invalid JSON format");
+        setJsonError("JSON 格式无效");
         return;
       }
     } else {
@@ -154,7 +154,7 @@ function SettingsPageInner() {
       setJsonText(JSON.stringify(parsed, null, 2));
       setJsonError("");
     } catch {
-      setJsonError("Cannot format: invalid JSON");
+      setJsonError("无法格式化：JSON 无效");
     }
   };
 
@@ -170,9 +170,9 @@ function SettingsPageInner() {
   return (
     <div className="flex h-full flex-col">
       <div className="border-b border-border/50 px-6 pt-4 pb-4">
-        <h1 className="text-xl font-semibold">Settings</h1>
+        <h1 className="text-xl font-semibold">设置</h1>
         <p className="text-sm text-muted-foreground">
-          Manage CodePilot and Claude CLI settings
+          管理 CodePilot 和 Claude CLI 的设置
         </p>
       </div>
 
@@ -184,7 +184,7 @@ function SettingsPageInner() {
             <div className="flex items-center justify-center py-12">
               <HugeiconsIcon icon={Loading02Icon} className="h-5 w-5 animate-spin text-muted-foreground" />
               <span className="ml-2 text-sm text-muted-foreground">
-                Loading settings...
+                正在加载设置...
               </span>
             </div>
           ) : (
@@ -192,11 +192,11 @@ function SettingsPageInner() {
               <TabsList className="mb-4">
                 <TabsTrigger value="form" className="gap-2">
                   <HugeiconsIcon icon={SlidersHorizontalIcon} className="h-4 w-4" />
-                  Visual Editor
+                  可视化编辑器
                 </TabsTrigger>
                 <TabsTrigger value="json" className="gap-2">
                   <HugeiconsIcon icon={CodeIcon} className="h-4 w-4" />
-                  JSON Editor
+                  JSON 编辑器
                 </TabsTrigger>
               </TabsList>
 
@@ -252,7 +252,7 @@ function SettingsPageInner() {
                               }
                             />
                             <span className="text-sm text-muted-foreground">
-                              {value ? "Enabled" : "Disabled"}
+                              {value ? "已启用" : "已禁用"}
                             </span>
                           </div>
                         ) : typeof value === "string" ? (
@@ -291,7 +291,7 @@ function SettingsPageInner() {
                       ) : (
                         <HugeiconsIcon icon={FloppyDiskIcon} className="h-4 w-4" />
                       )}
-                      {saving ? "Saving..." : "Save Changes"}
+                      {saving ? "正在保存..." : "保存更改"}
                     </Button>
                     <Button
                       variant="outline"
@@ -300,11 +300,11 @@ function SettingsPageInner() {
                       className="gap-2"
                     >
                       <HugeiconsIcon icon={ReloadIcon} className="h-4 w-4" />
-                      Reset
+                      重置
                     </Button>
                     {saveSuccess && (
                       <span className="text-sm text-green-600 dark:text-green-400">
-                        Settings saved successfully
+                        设置保存成功
                       </span>
                     )}
                   </div>
@@ -337,7 +337,7 @@ function SettingsPageInner() {
                       ) : (
                         <HugeiconsIcon icon={FloppyDiskIcon} className="h-4 w-4" />
                       )}
-                      {saving ? "Saving..." : "Save JSON"}
+                      {saving ? "正在保存..." : "保存 JSON"}
                     </Button>
                     <Button
                       variant="outline"
@@ -345,7 +345,7 @@ function SettingsPageInner() {
                       className="gap-2"
                     >
                       <HugeiconsIcon icon={CodeIcon} className="h-4 w-4" />
-                      Format
+                      格式化
                     </Button>
                     <Button
                       variant="outline"
@@ -353,11 +353,11 @@ function SettingsPageInner() {
                       className="gap-2"
                     >
                       <HugeiconsIcon icon={ReloadIcon} className="h-4 w-4" />
-                      Reset
+                      重置
                     </Button>
                     {saveSuccess && (
                       <span className="text-sm text-green-600 dark:text-green-400">
-                        Settings saved successfully
+                        设置保存成功
                       </span>
                     )}
                   </div>
@@ -372,18 +372,17 @@ function SettingsPageInner() {
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Save</AlertDialogTitle>
+            <AlertDialogTitle>确认保存</AlertDialogTitle>
             <AlertDialogDescription>
-              This will overwrite your current ~/.claude/settings.json file. Are
-              you sure you want to continue?
+              这将覆盖当前的 ~/.claude/settings.json 文件，确定要继续吗？
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>取消</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => pendingSaveAction && handleSave(pendingSaveAction)}
             >
-              Save
+              保存
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

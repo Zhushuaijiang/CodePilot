@@ -28,9 +28,9 @@ interface NavRailProps {
 }
 
 const navItems = [
-  { href: "/chat", label: "Chats", icon: Message02Icon },
-  { href: "/extensions", label: "Extensions", icon: GridIcon },
-  { href: "/settings", label: "Settings", icon: Settings02Icon },
+  { href: "/chat", label: "对话", icon: Message02Icon },
+  { href: "/extensions", label: "扩展", icon: GridIcon },
+  { href: "/settings", label: "设置", icon: Settings02Icon },
 ] as const;
 
 export function NavRail({ chatListOpen, onToggleChatList }: NavRailProps) {
@@ -57,11 +57,11 @@ export function NavRail({ chatListOpen, onToggleChatList }: NavRailProps) {
           >
             <Link href="/chat">
               <HugeiconsIcon icon={PlusSignIcon} className="h-4 w-4" />
-              <span className="sr-only">New Chat</span>
+              <span className="sr-only">新建对话</span>
             </Link>
           </Button>
         </TooltipTrigger>
-        <TooltipContent side="right">New Chat</TooltipContent>
+        <TooltipContent side="right">新建对话</TooltipContent>
       </Tooltip>
 
       {/* Divider */}
@@ -140,11 +140,11 @@ export function NavRail({ chatListOpen, onToggleChatList }: NavRailProps) {
                 ) : (
                   <HugeiconsIcon icon={Moon02Icon} className="h-4 w-4" />
                 )}
-                <span className="sr-only">Toggle theme</span>
+                <span className="sr-only">切换主题</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
+              {theme === "dark" ? "浅色模式" : "深色模式"}
             </TooltipContent>
           </Tooltip>
         )}

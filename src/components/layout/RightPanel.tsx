@@ -14,7 +14,11 @@ import { usePanel } from "@/hooks/usePanel";
 import { FileTree } from "@/components/project/FileTree";
 import { FilePreview } from "@/components/project/FilePreview";
 
-export function RightPanel() {
+interface RightPanelProps {
+  width?: number; // 由外层控制宽度，默认与 w-72 接近
+}
+
+export function RightPanel({ width = 288 }: RightPanelProps) {
   const { panelOpen, setPanelOpen, workingDirectory, sessionId, sessionTitle, setSessionTitle } = usePanel();
   const [previewPath, setPreviewPath] = useState<string | null>(null);
   const [isEditingName, setIsEditingName] = useState(false);
@@ -65,23 +69,8 @@ export function RightPanel() {
   }, [handleSaveName]);
 
   if (!panelOpen) {
-    return (
-      <div className="flex flex-col items-center gap-2 bg-background p-2">
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => setPanelOpen(true)}
-            >
-              <HugeiconsIcon icon={StructureFolderIcon} className="h-4 w-4" />
-              <span className="sr-only">Open panel</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="left">Open panel</TooltipContent>
-        </Tooltip>
-      </div>
-    );
+    // 折叠时不再绘制自身，由 AppShell 在分割线中间绘制展开图标
+    return null;
   }
 
   const handleFileSelect = (path: string) => {
@@ -93,23 +82,15 @@ export function RightPanel() {
   };
 
   return (
-    <aside className="hidden h-full w-72 shrink-0 flex-col overflow-hidden bg-background lg:flex">
+    <aside
+      className="hidden h-full shrink-0 flex-col overflow-hidden bg-background lg:flex"
+      style={{ width, WebkitAppRegion: "no-drag" } as React.CSSProperties}
+    >
       {/* Header */}
-      <div className="flex h-10 shrink-0 items-center justify-between px-4">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Chat Info</span>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => setPanelOpen(false)}
-            >
-              <HugeiconsIcon icon={PanelRightCloseIcon} className="h-4 w-4" />
-              <span className="sr-only">Close panel</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="left">Close panel</TooltipContent>
-        </Tooltip>
+      <div className="flex h-10 shrink-0 items-center px-4">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Chat Info
+        </span>
       </div>
 
       {/* Body */}

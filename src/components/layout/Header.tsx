@@ -36,11 +36,11 @@ export function Header() {
                 ) : (
                   <HugeiconsIcon icon={Moon02Icon} className="h-4 w-4" />
                 )}
-                <span className="sr-only">Toggle theme</span>
+                <span className="sr-only">切换主题</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {theme === "dark" ? "Light mode" : "Dark mode"}
+              {theme === "dark" ? "浅色模式" : "深色模式"}
             </TooltipContent>
           </Tooltip>
         )}

@@ -119,7 +119,7 @@ export const FileTreeFolder = ({
   children,
   ...props
 }: FileTreeFolderProps) => {
-  const { expandedPaths, togglePath, selectedPath, onSelect } =
+  const { expandedPaths, togglePath, selectedPath } =
     useContext(FileTreeContext);
   const isExpanded = expandedPaths.has(path);
   const isSelected = selectedPath === path;
@@ -127,10 +127,6 @@ export const FileTreeFolder = ({
   const handleOpenChange = useCallback(() => {
     togglePath(path);
   }, [togglePath, path]);
-
-  const handleSelect = useCallback(() => {
-    onSelect?.(path);
-  }, [onSelect, path]);
 
   const folderContextValue = useMemo(
     () => ({ isExpanded, name, path }),
@@ -152,7 +148,6 @@ export const FileTreeFolder = ({
                 "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
                 isSelected && "bg-muted"
               )}
-              onClick={handleSelect}
               type="button"
             >
               <ChevronRightIcon

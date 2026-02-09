@@ -243,6 +243,8 @@ export interface SessionResponse {
 
 export interface MessagesResponse {
   messages: Message[];
+  total?: number;
+  hasMore?: boolean;
 }
 
 export interface SuccessResponse {
