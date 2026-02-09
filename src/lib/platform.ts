@@ -98,8 +98,15 @@ export function getExpandedPath(): string {
 /**
  * Find and validate the Claude CLI binary.
  * Tests each candidate with --version before returning.
+ * Returns the actual cli.js path for SDK compatibility, not wrapper scripts.
  */
 export function findClaudeBinary(): string | undefined {
+  // First, check if CLAUDE_CODE_PATH environment variable is set
+  const envPath = process.env.CLAUDE_CODE_PATH;
+  if (envPath && fs.existsSync(envPath)) {
+    return envPath;
+  }
+
   // Try known candidate paths first
   for (const p of getClaudeCandidatePaths()) {
     try {
@@ -108,6 +115,14 @@ export function findClaudeBinary(): string | undefined {
         stdio: 'pipe',
         shell: needsShell(p),
       });
+      // For .cmd wrappers on Windows, derive the actual cli.js path
+      if (isWindows && p.endsWith('.cmd')) {
+        const cliDir = path.dirname(p);
+        const cliJsPath = path.join(cliDir, 'node_modules', '@anthropic-ai', 'claude-code', 'cli.js');
+        if (fs.existsSync(cliJsPath)) {
+          return cliJsPath;
+        }
+      }
       return p;
     } catch {
       // not found, try next
@@ -135,6 +150,14 @@ export function findClaudeBinary(): string | undefined {
           stdio: 'pipe',
           shell: needsShell(candidate),
         });
+        // For .cmd wrappers on Windows, derive the actual cli.js path
+        if (isWindows && candidate.endsWith('.cmd')) {
+          const cliDir = path.dirname(candidate);
+          const cliJsPath = path.join(cliDir, 'node_modules', '@anthropic-ai', 'claude-code', 'cli.js');
+          if (fs.existsSync(cliJsPath)) {
+            return cliJsPath;
+          }
+        }
         return candidate;
       } catch {
         continue;
